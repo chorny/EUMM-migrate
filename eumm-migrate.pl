@@ -32,10 +32,13 @@ META_MERGE	meta_merge
 /;
   my %result;
   while (my($key,$val)=each %params) {
+    next if $key eq 'MIN_PERL_VERSION';
     die "Unknown key '$key' in WriteMakefile call" unless exists $transition{$key};
     next if $transition{$key} eq '-';
-    next if $transition{$key} eq '-';
     $result{$transition{$key}}=$val;
+  }
+  if (exists $params{'MIN_PERL_VERSION'}) {
+    $result{requires}{perl}=$params{'MIN_PERL_VERSION'};
   }
   #print "Writing 
   open my $out,'>','Build.PL';
