@@ -6,3 +6,43 @@ use warnings;
 
 #License: GPL (may change in the future)
 
+$INC{'ExtUtils::MakeMaker'}=1;
+
+package #hide from PAUSE
+ ExtUtils::MakeMaker;
+our $VERSION=6.54;
+
+use Data::Dumper;
+
+#our $writefile_data;
+sub WriteMakefile {
+  my %params=@_;
+  die "EXTRA_META is deprecated" if exists $params{EXTRA_META};
+  warn "License not specified" if not exists $params{LICENSE};
+  my %transition=qw/
+NAME	module_name
+VERSION_FROM	-
+PREREQ_PM	requires
+INSTALLDIRS	installdirs
+EXE_FILES	script_files
+PL_FILES	-
+LICENSE	license
+BUILD_REQUIRES	build_requires
+META_MERGE	meta_merge
+/;
+  my %result;
+  while (my($key,$val)=each %params) {
+    die "Unknown key '$key' in WriteMakefile call" unless exists $transition{$key};
+    next if $transition{$key} eq '-';
+    $result{$transition{$key}}=$val;
+  }
+  #print "Writing 
+  open my $out,'>','Build.PL';
+  print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
+
+  #my $var='';
+}
+
+package main;
+do './Makefile.PL';
+die if $@;
