@@ -6,7 +6,7 @@ use warnings;
 
 #License: GPL (may change in the future)
 
-$INC{'ExtUtils::MakeMaker'}=1;
+$INC{'ExtUtils/MakeMaker.pm'}=1;
 
 package #hide from PAUSE
  ExtUtils::MakeMaker;
@@ -18,7 +18,7 @@ use Data::Dumper;
 sub WriteMakefile {
   my %params=@_;
   die "EXTRA_META is deprecated" if exists $params{EXTRA_META};
-  warn "License not specified" if not exists $params{LICENSE};
+  print "License not specified\n" if not exists $params{LICENSE};
   my %transition=qw/
 NAME	module_name
 VERSION_FROM	-
@@ -34,6 +34,7 @@ META_MERGE	meta_merge
   while (my($key,$val)=each %params) {
     die "Unknown key '$key' in WriteMakefile call" unless exists $transition{$key};
     next if $transition{$key} eq '-';
+    next if $transition{$key} eq '-';
     $result{$transition{$key}}=$val;
   }
   #print "Writing 
@@ -44,5 +45,6 @@ META_MERGE	meta_merge
 }
 
 package main;
+*WriteMakefile=*ExtUtils::MakeMaker::WriteMakefile;
 do './Makefile.PL';
 die if $@;
