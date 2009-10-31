@@ -29,6 +29,8 @@ PL_FILES	-
 LICENSE	license
 BUILD_REQUIRES	build_requires
 META_MERGE	meta_merge
+AUTHOR	dist_author
+ABSTRACT_FROM	-
 /;
   my %result;
   while (my($key,$val)=each %params) {
