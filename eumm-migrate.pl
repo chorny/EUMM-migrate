@@ -25,7 +25,7 @@ sub WriteMakefile {
   }
   my %transition=qw/
 NAME	module_name
-VERSION_FROM	dist_version
+VERSION_FROM	dist_version_from
 PREREQ_PM	requires
 INSTALLDIRS	installdirs
 EXE_FILES	script_files
