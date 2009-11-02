@@ -46,6 +46,21 @@ ABSTRACT_FROM	-
   if (exists $params{'MIN_PERL_VERSION'}) {
     $result{requires}{perl}=$params{'MIN_PERL_VERSION'};
   }
+  if (!exists $params{'META_MERGE'}{resources}{repository}) {
+    require Module::Install::Repository;
+    my $repo = Module::Install::Repository::_find_repo(\&Module::Install::Repository::_execute);
+    if ($repo and $repo=~m#://#) {
+      print "Repository found: $repo\n";
+      eval {
+        require NGP;
+        $repo=NGP::github_parent($repo);
+  
+      };
+      $result{'meta_merge'}{resources}{repository}=$repo;
+    }
+  }
+  if (exists $params{'VERSION_FROM'}) {
+  }
   #print "Writing 
   open my $out,'>','Build.PL';
   my $str;
