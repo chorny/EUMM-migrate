@@ -44,9 +44,27 @@ ABSTRACT_FROM	-
   }
   #print "Writing 
   open my $out,'>','Build.PL';
-  print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
+  my $str;
+  #print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
+  #print $out dump(\%result);
+  { local $Data::Dumper::Indent =1;local $Data::Dumper::Terse=1;
+    $str=Data::Dumper->Dump([\%result], []);
+    $str=~s/^\{[\x0A\x0D]+//s;
+    $str=~s/\}[\x0A\x0D]+\s*$//s;
+  }
+  print $out <<'EOT';
+use strict;
+use Module::Build;
 
-  #my $var='';
+my $build = Module::Build->new(
+EOT
+  print $out $str;
+  print $out <<'EOT';
+);
+
+$build->create_build_script();
+EOT
+
 }
 
 package main;
