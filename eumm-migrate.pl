@@ -13,6 +13,7 @@ package #hide from PAUSE
 our $VERSION=6.54;
 
 use Data::Dumper;
+use File::Slurp;
 
 #our $writefile_data;
 sub WriteMakefile {
@@ -59,7 +60,22 @@ ABSTRACT_FROM	-
       $result{'meta_merge'}{resources}{repository}=$repo;
     }
   }
+  require Module::Install::Metadata;
   if (exists $params{'VERSION_FROM'}) {
+    my $main_file_content=eval { read_file($params{'VERSION_FROM'}) };
+    if (! exists($result{requires}{perl})) {
+      my $version=Module::Install::Metadata::_extract_perl_version($main_file_content);
+      if ($version) {
+        $result{requires}{perl}=$version;
+      }
+    }
+  }
+  if (! exists($result{requires}{perl})) {
+    my $makefilepl_content=eval { read_file('Makefile.PL') };
+    my $version=Module::Install::Metadata::_extract_perl_version($makefilepl_content);
+    if ($version) {
+      $result{requires}{perl}=$version;
+    }
   }
   #print "Writing 
   open my $out,'>','Build.PL';
