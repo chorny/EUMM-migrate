@@ -11,9 +11,20 @@ $INC{'ExtUtils/MakeMaker.pm'}=1;
 package #hide from PAUSE
  ExtUtils::MakeMaker;
 our $VERSION=6.54;
+use Exporter;
+our @ISA=qw/Exporter/;
+our @EXPORT=qw/prompt WriteMakefile/;
+#our @EXPORT_OK=qw/prompt WriteMakefile/;
 
 use Data::Dumper;
 use File::Slurp;
+
+my @prompts;
+sub prompt ($;$) {  ## no critic
+    my($mess, $def) = @_;
+    push @prompts,[$mess, $def];
+}
+
 
 #our $writefile_data;
 sub WriteMakefile {
@@ -86,6 +97,14 @@ ABSTRACT	dist_abstract
   }
   #print "Writing 
   open my $out,'>','Build.PL';
+  my $prompts_str='';
+  if (@prompts) {
+    $prompts_str.="die 'please write prompt handling code';\n";
+    foreach my $p (@prompts) {
+      my($mess, $def) = @$p;
+      $prompts_str.="Module::Build->prompt(q{$mess},q{$def});\n";
+    }
+  }
   my $str;
   #print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
   #print $out dump(\%result);
@@ -97,7 +116,9 @@ ABSTRACT	dist_abstract
   print $out <<'EOT';
 use strict;
 use Module::Build;
-
+EOT
+print $out $prompts_str;
+  print $out <<'EOT';
 my $build = Module::Build->new(
 EOT
   print $out $str;
