@@ -33,7 +33,7 @@ sub WriteMakefile {
   #print "License not specified\n" if not exists $params{LICENSE};
   if (exists $params{VERSION_FROM} and exists $params{ABSTRACT_FROM} and
    $params{VERSION_FROM} ne $params{ABSTRACT_FROM}) {
-    die "VERSION_FROM can be separate from ABSTRACT_FROM in Module::Build";
+    die "VERSION_FROM can't be different from ABSTRACT_FROM in Module::Build";
   }
   my %transition=qw/
 NAME	module_name
