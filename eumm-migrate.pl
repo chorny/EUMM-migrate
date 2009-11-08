@@ -104,6 +104,7 @@ ABSTRACT	dist_abstract
       my($mess, $def) = @$p;
       $prompts_str.="Module::Build->prompt(q{$mess},q{$def});\n";
     }
+    $prompts_str.="\n";
   }
   my $str;
   #print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
@@ -116,6 +117,7 @@ ABSTRACT	dist_abstract
   print $out <<'EOT';
 use strict;
 use Module::Build;
+
 EOT
 print $out $prompts_str;
   print $out <<'EOT';
@@ -131,6 +133,5 @@ EOT
 }
 
 package main;
-*WriteMakefile=*ExtUtils::MakeMaker::WriteMakefile;
 do './Makefile.PL';
 die if $@;
