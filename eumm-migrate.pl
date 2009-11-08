@@ -19,7 +19,7 @@ use File::Slurp;
 sub WriteMakefile {
   my %params=@_;
   die "EXTRA_META is deprecated" if exists $params{EXTRA_META};
-  print "License not specified\n" if not exists $params{LICENSE};
+  #print "License not specified\n" if not exists $params{LICENSE};
   if (exists $params{VERSION_FROM} and exists $params{ABSTRACT_FROM} and
    $params{VERSION_FROM} ne $params{ABSTRACT_FROM}) {
     die "VERSION_FROM can be separate from ABSTRACT_FROM in Module::Build";
@@ -68,6 +68,12 @@ ABSTRACT_FROM	-
       if ($version) {
         $result{requires}{perl}=$version;
       }
+    }
+    if (! exists($result{license})) {
+        my $l=Module::Install::Metadata::_extract_license($main_file_content);
+        if ($l) {
+          $result{license}=$l;
+        }
     }
   }
   if (! exists($result{requires}{perl})) {
