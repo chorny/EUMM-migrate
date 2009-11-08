@@ -36,6 +36,7 @@ BUILD_REQUIRES	build_requires
 META_MERGE	meta_merge
 AUTHOR	dist_author
 ABSTRACT_FROM	-
+ABSTRACT	dist_abstract
 /;
   my %result;
   while (my($key,$val)=each %params) {
