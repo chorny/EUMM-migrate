@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 #License: GPL (may change in the future)
+#Perl tool to migrate from ExtUtils::MakeMaker to Module::Build
 
 $INC{'ExtUtils/MakeMaker.pm'}=1;
 
@@ -109,7 +110,7 @@ ABSTRACT	dist_abstract
   my $str;
   #print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
   #print $out dump(\%result);
-  { local $Data::Dumper::Indent =1;local $Data::Dumper::Terse=1;
+  { local $Data::Dumper::Indent=1;local $Data::Dumper::Terse=1;
     $str=Data::Dumper->Dump([\%result], []);
     $str=~s/^\{[\x0A\x0D]+//s;
     $str=~s/\}[\x0A\x0D]+\s*$//s;
