@@ -50,9 +50,21 @@ AUTHOR	dist_author
 ABSTRACT_FROM	-
 ABSTRACT	dist_abstract
 /;
+  my %transition2=(
+   'clean'=>{
+     FILES => 'add_to_cleanup',
+   },
+  );
   my %result;
   while (my($key,$val)=each %params) {
     next if $key eq 'MIN_PERL_VERSION';
+    if (exists $transition2{$key}) {
+      while (my($key1,$val1)=each %$val) {
+        die "Unknown key '$key'->'$key1' in WriteMakefile call" unless exists $transition2{$key}->{$key1};
+        $result{ $transition2{$key}->{$key1} }=$val1;
+      }
+      next;
+    }
     die "Unknown key '$key' in WriteMakefile call" unless exists $transition{$key};
     next if $transition{$key} eq '-';
     $result{$transition{$key}}=$val;
