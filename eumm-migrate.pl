@@ -130,6 +130,7 @@ ABSTRACT	dist_abstract
   print $out <<'EOT';
 use strict;
 use Module::Build;
+#created by eumm-migrate.pl
 
 EOT
 print $out $prompts_str;
