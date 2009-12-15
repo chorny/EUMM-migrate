@@ -78,8 +78,8 @@ ABSTRACT	dist_abstract
     if ($repo and $repo=~m#://#) {
       print "Repository found: $repo\n";
       eval {
-        require NGP;
-        $repo=NGP::github_parent($repo);
+        require Github::Fork::Parent;
+        $repo=Github::Fork::Parent::github_parent($repo);
   
       };
       $result{'meta_merge'}{resources}{repository}=$repo;
