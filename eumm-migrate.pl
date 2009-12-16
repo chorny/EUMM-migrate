@@ -6,6 +6,18 @@ use warnings;
 
 #License: GPL (may change in the future)
 #Perl tool to migrate from ExtUtils::MakeMaker to Module::Build
+=pod
+
+App::EUMM::Migrate
+
+eumm-migrate is a tool to migrate from ExtUtils::MakeMaker to Module::Build.
+It executes Makefile.PL with fake ExtUtils::MakeMaker and rewrites all parameters for
+WriteMakefile into corresponding params of Module::Build->new. Calls to 'prompt' are also
+intercepted and corresponding 'prompt' is written to Build.PL. All other info should be ported
+manually.
+
+(c) Alexandr Ciornii
+=cut
 
 $INC{'ExtUtils/MakeMaker.pm'}=1;
 
