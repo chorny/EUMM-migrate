@@ -18,6 +18,14 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
+eumm-migrate is a tool to migrate from ExtUtils::MakeMaker to Module::Build.
+It executes Makefile.PL with fake ExtUtils::MakeMaker and rewrites all parameters for
+WriteMakefile into corresponding params of Module::Build->new. Calls to 'prompt' are also
+intercepted and corresponding 'prompt' is written to Build.PL. All other info should be ported
+manually.
+
+eumm-migrate tries to automatically detect some properties like license, minimum Perl version
+required and repository used.
 
 =cut
 

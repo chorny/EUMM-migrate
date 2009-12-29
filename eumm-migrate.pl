@@ -16,6 +16,9 @@ WriteMakefile into corresponding params of Module::Build->new. Calls to 'prompt'
 intercepted and corresponding 'prompt' is written to Build.PL. All other info should be ported
 manually.
 
+eumm-migrate tries to automatically detect some properties like license, minimum Perl version
+required and repository used.
+
 (c) Alexandr Ciornii
 =cut
 
