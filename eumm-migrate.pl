@@ -23,7 +23,7 @@ $INC{'ExtUtils/MakeMaker.pm'}=1;
 
 package #hide from PAUSE
  ExtUtils::MakeMaker;
-our $VERSION=6.54;
+our $VERSION=6.56;
 use Exporter;
 our @ISA=qw/Exporter/;
 our @EXPORT=qw/prompt WriteMakefile/;
