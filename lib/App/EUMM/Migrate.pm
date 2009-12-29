@@ -5,7 +5,7 @@ use strict;
 
 =head1 NAME
 
-App::EUMM::Migrate - The great new App::EUMM::Migrate!
+App::EUMM::Migrate - Perl tool to migrate from ExtUtils::MakeMaker to Module::Build
 
 =head1 VERSION
 
@@ -18,39 +18,13 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
-    use App::EUMM::Migrate;
-
-    my $foo = App::EUMM::Migrate->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 FUNCTIONS
-
-=head2 function1
 
 =cut
 
-sub function1 {
-}
-
-=head2 function2
-
-=cut
-
-sub function2 {
-}
 
 =head1 AUTHOR
 
-Alexandr Cionii, C<< <alexchorny at gmail.com> >>
+Alexandr Ciornii, C<< <alexchorny at gmail.com> >>
 
 =head1 BUGS
 
@@ -96,7 +70,7 @@ L<http://search.cpan.org/dist/App-EUMM-Migrate/>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009 Alexandr Cionii.
+Copyright 2009 Alexandr Ciornii.
 
 GPL3
 
