@@ -126,7 +126,6 @@ ABSTRACT	dist_abstract
       $result{requires}{perl}=$version;
     }
   }
-  #print "Writing 
   open my $out,'>','Build.PL';
   my $prompts_str='';
   if (@prompts) {
@@ -138,8 +137,6 @@ ABSTRACT	dist_abstract
     $prompts_str.="\n";
   }
   my $str;
-  #print $out Data::Dumper->Dump([\%result], ['my $build = Module::CPANTS::MyBuild->new(']);
-  #print $out dump(\%result);
   { local $Data::Dumper::Indent=1;local $Data::Dumper::Terse=1;
     $str=Data::Dumper->Dump([\%result], []);
     $str=~s/^\{[\x0A\x0D]+//s;
