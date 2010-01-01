@@ -12,6 +12,7 @@ my $builder = Module::Build->new(
         'File::Slurp' => 0,
         'Text::FindIndent' => 0,
         'Github::Fork::Parent' => 0,
+        'Data::Dumper' => 0,
         'perl' => 5.006,
     },
     build_requires => {

@@ -11,3 +11,4 @@ cover_db
 .gitignore
 a
 Build.bat
+*.tmp
