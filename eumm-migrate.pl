@@ -37,6 +37,7 @@ our @EXPORT=qw/prompt WriteMakefile/;
 
 use Data::Dumper;
 use File::Slurp;
+use Perl::Meta;
 
 my @prompts;
 sub prompt ($;$) {  ## no critic
@@ -110,13 +111,13 @@ ABSTRACT	dist_abstract
   if (exists $params{'VERSION_FROM'}) {
     my $main_file_content=eval { read_file($params{'VERSION_FROM'}) };
     if (! exists($result{requires}{perl})) {
-      my $version=Module::Install::Metadata::_extract_perl_version($main_file_content);
+      my $version=Perl::Meta::_extract_perl_version($main_file_content);
       if ($version) {
         $result{requires}{perl}=$version;
       }
     }
     if (! exists($result{license})) {
-        my $l=Module::Install::Metadata::_extract_license($main_file_content);
+        my $l=Perl::Meta::_extract_license($main_file_content);
         if ($l) {
           $result{license}=$l;
         }
@@ -124,7 +125,7 @@ ABSTRACT	dist_abstract
   }
   if (! exists($result{requires}{perl})) {
     my $makefilepl_content=eval { read_file('Makefile.PL') };
-    my $version=Module::Install::Metadata::_extract_perl_version($makefilepl_content);
+    my $version=Perl::Meta::_extract_perl_version($makefilepl_content);
     if ($version) {
       $result{requires}{perl}=$version;
     }
@@ -169,83 +170,6 @@ EOT
 package main;
 do './Makefile.PL';
 die if $@;
-
-package Module::Install::Metadata;
-#by Adam Kennedy and Alexandr Ciornii
-#See Module::Install for copyright
-
-sub _extract_perl_version {
-	if (
-		$_[0] =~ m/
-		^\s*
-		(?:use|require) \s*
-		v?
-		([\d_\.]+)
-		\s* ;
-		/ixms
-	) {
-		my $perl_version = $1;
-		$perl_version =~ s{_}{}g;
-		return $perl_version;
-	} else {
-		return;
-	}
-}
-
-sub _extract_license {
-	if (
-		$_[0] =~ m/
-		(
-			=head \d \s+
-			(?:licen[cs]e|licensing|copyrights?|legal)\b
-			.*?
-		)
-		(=head\\d.*|=cut.*|)
-		\z
-	/ixms ) {
-		my $license_text = $1;
-		my @phrases      = (
-			'under the same (?:terms|license) as (?:perl|the perl programming language)' => 'perl', 1,
-			'under the terms of (?:perl|the perl programming language) itself' => 'perl', 1,
-			'GNU general public license'         => 'gpl',         1,
-			'GNU public license'                 => 'gpl',         1,
-			'GNU lesser general public license'  => 'lgpl',        1,
-			'GNU lesser public license'          => 'lgpl',        1,
-			'GNU library general public license' => 'lgpl',        1,
-			'GNU library public license'         => 'lgpl',        1,
-			'BSD license'                        => 'bsd',         1,
-			'Artistic license'                   => 'artistic',    1,
-			'GPL'                                => 'gpl',         1,
-			'LGPL'                               => 'lgpl',        1,
-			'BSD'                                => 'bsd',         1,
-			'Artistic'                           => 'artistic',    1,
-			'MIT'                                => 'mit',         1,
-			'proprietary'                        => 'proprietary', 0,
-		);
-		while ( my ($pattern, $license, $osi) = splice(@phrases, 0, 3) ) {
-			$pattern =~ s#\s+#\\s+#g;
-			if ( $license_text =~ /\b$pattern\b/i ) {
-			        return $license;
-			}
-		}
-	} else {
-	        return;
-	}
-}
-
-sub _extract_bugtracker {
-	my @links   = $_[0] =~ m#L<(
-	 \Qhttp://rt.cpan.org/\E[^>]+|
-	 \Qhttp://github.com/\E[\w_]+/[\w_]+/issues|
-	 \Qhttp://code.google.com/p/\E[\w_\-]+/issues/list
-	 )>#gx;
-	my %links;
-	@links{@links}=();
-	@links=keys %links;
-	return @links;
-}
-
-1;
 
 package Module::Install::Repository;
 #by Tatsuhiko Miyagawa
