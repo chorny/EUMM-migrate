@@ -1,5 +1,8 @@
 Revision history for App-EUMM-Migrate
 
+        Better search for 'Perl' license
+        Write "auto_configure_requires=>0"
+
 0.02    2009-12-29
         First version.
 

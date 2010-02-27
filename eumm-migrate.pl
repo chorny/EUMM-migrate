@@ -126,6 +126,8 @@ ABSTRACT	dist_abstract
       $result{requires}{perl}=$version;
     }
   }
+  $result{auto_configure_requires}=0;
+
   open my $out,'>','Build.PL';
   my $prompts_str='';
   if (@prompts) {
