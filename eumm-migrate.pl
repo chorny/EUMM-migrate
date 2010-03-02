@@ -54,6 +54,9 @@ sub WriteMakefile {
    $params{VERSION_FROM} ne $params{ABSTRACT_FROM}) {
     die "VERSION_FROM can't be different from ABSTRACT_FROM in Module::Build";
   }
+  if (! exists $params{PL_FILES}) {
+    print "You need to add PL_FILES=> {} into Makefile.PL\n";
+  }
   my %transition=qw/
 NAME	module_name
 VERSION_FROM	dist_version_from
