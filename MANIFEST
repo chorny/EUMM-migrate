@@ -9,3 +9,4 @@ eumm-migrate.pl
 ignore.txt
 META.yml
 Makefile.PL
+META.json

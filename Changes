@@ -1,5 +1,6 @@
 Revision history for App-EUMM-Migrate
 
+0.10    2011-05-10
         use Perl::Meta
         Write "auto_configure_requires=>0"
 

@@ -9,11 +9,11 @@ App::EUMM::Migrate - Perl tool to migrate from ExtUtils::MakeMaker to Module::Bu
 
 =head1 VERSION
 
-Version 0.02
+Version 0.10
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.10';
 
 
 =head1 SYNOPSIS
