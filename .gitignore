@@ -16,3 +16,6 @@ App-EUMM-Migrate-*
 cover_db
 Build.bat
 *.tmp
+
+META.*
+MYMETA.*

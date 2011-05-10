@@ -111,13 +111,13 @@ ABSTRACT	dist_abstract
   if (exists $params{'VERSION_FROM'}) {
     my $main_file_content=eval { read_file($params{'VERSION_FROM'}) };
     if (! exists($result{requires}{perl})) {
-      my $version=Perl::Meta::_extract_perl_version($main_file_content);
+      my $version=Perl::Meta::extract_perl_version($main_file_content);
       if ($version) {
         $result{requires}{perl}=$version;
       }
     }
     if (! exists($result{license})) {
-        my $l=Perl::Meta::_extract_license($main_file_content);
+        my $l=Perl::Meta::extract_license($main_file_content);
         if ($l) {
           $result{license}=$l;
         }
@@ -125,7 +125,7 @@ ABSTRACT	dist_abstract
   }
   if (! exists($result{requires}{perl})) {
     my $makefilepl_content=eval { read_file('Makefile.PL') };
-    my $version=Perl::Meta::_extract_perl_version($makefilepl_content);
+    my $version=Perl::Meta::extract_perl_version($makefilepl_content);
     if ($version) {
       $result{requires}{perl}=$version;
     }
