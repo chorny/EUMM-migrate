@@ -81,7 +81,7 @@ L<http://search.cpan.org/dist/App-EUMM-Migrate/>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009 Alexandr Ciornii.
+Copyright 2009-2011 Alexandr Ciornii.
 
 GPL3
 
