@@ -71,6 +71,7 @@ META_MERGE	meta_merge
 AUTHOR	dist_author
 ABSTRACT_FROM	-
 ABSTRACT	dist_abstract
+dist		-
 /;
   my %transition2=(
    'clean'=>{
