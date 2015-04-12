@@ -90,6 +90,9 @@ dist		-
     }
     die "Unknown key '$key' in WriteMakefile call" unless exists $transition{$key};
     next if $transition{$key} eq '-';
+    if ($key eq 'INSTALLDIRS' and $val eq 'perl') {
+      $val = 'core';
+    }
     $result{$transition{$key}}=$val;
   }
   if (exists $params{'MIN_PERL_VERSION'}) {
