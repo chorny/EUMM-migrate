@@ -24,7 +24,8 @@ my $builder = Module::Build->new(
     ],
     meta_merge => {
         resources => {
-            repository => 'http://github.com/chorny/EUMM-migrate',
+            repository => 'https://github.com/chorny/EUMM-migrate',
+            bugtracker => 'https://github.com/chorny/EUMM-migrate/issues',
         },
         keywords => [
             'development','upgrade','EU::MM','Makefile.PL','Module::Build',
